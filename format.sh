@@ -20,6 +20,9 @@ before=$(shasum -a 256 "${swift_files[@]}")
 xcrun swift-format format --in-place --parallel "${swift_files[@]}"
 after=$(shasum -a 256 "${swift_files[@]}")
 
+# Formatting skips lint-only rules.
+xcrun swift-format lint --strict --parallel "${swift_files[@]}"
+
 if [[ "$before" != "$after" ]]; then
   exit 1
 fi
