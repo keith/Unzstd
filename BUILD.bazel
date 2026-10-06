@@ -1,0 +1,45 @@
+load("@rules_apple//apple:macos.bzl", "macos_application")
+load("@rules_cc//cc:cc_library.bzl", "cc_library")
+load("@rules_swift//swift:swift.bzl", "swift_library", "swift_test")
+load("@rules_swift//swift:swift_interop_hint.bzl", "swift_interop_hint")
+
+swift_interop_hint(
+    name = "zstd_swift_interop",
+    module_name = "libzstd",
+    tags = ["manual"],
+)
+
+cc_library(
+    name = "zstd",
+    hdrs = ["@zstd//:lib/zstd.h"],
+    aspect_hints = [":zstd_swift_interop"],
+    tags = ["manual"],
+    deps = ["@zstd"],
+)
+
+swift_library(
+    name = "app",
+    srcs = glob(["Unzstd/*.swift"]),
+    module_name = "Unzstd",
+    tags = ["manual"],
+    deps = [":zstd"],
+)
+
+macos_application(
+    name = "Unzstd",
+    bundle_id = "com.smileykeith.Unzstd",
+    infoplists = ["Config/Info.plist"],
+    minimum_os_version = "13.0",
+    resources = ["@zstd_license//:LICENSE"],
+    deps = [":app"],
+)
+
+swift_test(
+    name = "ExtractionTests",
+    size = "small",
+    srcs = ["Tests/ArchiveExtractorTests.swift"],
+    deps = [
+        ":app",
+        ":zstd",
+    ],
+)
