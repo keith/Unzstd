@@ -26,6 +26,8 @@ final class ExtractionModel: ObservableObject {
 
   func chooseFiles() {
     let panel = NSOpenPanel()
+    panel.directoryURL =
+      FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first
     panel.allowedContentTypes = Self.contentTypes
     panel.allowsMultipleSelection = true
     panel.canChooseDirectories = false
