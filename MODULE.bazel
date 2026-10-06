@@ -16,3 +16,7 @@ archive_override(
     strip_prefix = "rules_swift-5e7e5a3fbd9f6800aff24d56357ccc459d4f9bc9",
     urls = ["https://github.com/bazelbuild/rules_swift/archive/5e7e5a3fbd9f6800aff24d56357ccc459d4f9bc9.tar.gz"],
 )
+
+zstd_license = use_repo_rule("//:repositories.bzl", "zstd_license")
+
+zstd_license(name = "zstd_license")
