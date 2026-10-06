@@ -93,6 +93,7 @@ final class ExtractionModel: ObservableObject {
         title = "Extraction cancelled"
         detail = "The original files have been kept."
         isCancelling = false
+        NSApplication.shared.terminate(nil)
       } else if !failures.isEmpty {
         title =
           failures.count == 1
@@ -102,6 +103,7 @@ final class ExtractionModel: ObservableObject {
         title = outputs.count == 1 ? "Extraction complete" : "Expanded \(outputs.count) files"
         detail = "Saved beside the original \(outputs.count == 1 ? "file" : "files")."
         NSWorkspace.shared.activateFileViewerSelecting(outputs)
+        NSApplication.shared.terminate(nil)
       }
       return
     }
