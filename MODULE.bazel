@@ -1,0 +1,10 @@
+module(
+    name = "unzstd",
+    version = "1.0.0",
+)
+
+bazel_dep(name = "apple_support", version = "2.9.1")
+bazel_dep(name = "rules_apple", version = "5.2.0")
+bazel_dep(name = "rules_cc", version = "0.2.26")
+bazel_dep(name = "rules_swift", version = "4.1.2")
+bazel_dep(name = "zstd", version = "1.5.7.bcr.2")
